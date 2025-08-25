@@ -6,7 +6,7 @@ This module initializes the FastAPI application and runs the server using Uvicor
 import logging
 from collections.abc import AsyncGenerator
 
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 from fastapi.concurrency import asynccontextmanager
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import HTMLResponse
@@ -61,4 +61,4 @@ async def health_check() -> dict:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host=config.app_host, port=config.app_port, reload=True)
