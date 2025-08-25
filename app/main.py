@@ -6,22 +6,21 @@ This module initializes the FastAPI application and runs the server using Uvicor
 import logging
 from collections.abc import AsyncGenerator
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.concurrency import asynccontextmanager
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import HTMLResponse
 
-from app.core.config import ConfigLoader
+from app.api.summarize import router as summarize_router
+from app.core.config import config
 from app.core.http_middlewares import add_cors_middleware
-
-config = ConfigLoader()
 
 logger = logging.getLogger(config.project_name)
 logging.basicConfig(level=logging.INFO)
 
 
 @asynccontextmanager
-async def lifespan(_) -> AsyncGenerator[None]:
+async def lifespan(_: Request) -> AsyncGenerator[None]:
     """Application lifespan events."""
     logger.info("Application startup")
     yield
@@ -56,6 +55,9 @@ async def health_check() -> dict:
 
     """
     return {"status": "healthy"}
+
+
+app.include_router(summarize_router)
 
 
 if __name__ == "__main__":
