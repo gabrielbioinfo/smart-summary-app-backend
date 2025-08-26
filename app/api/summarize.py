@@ -12,12 +12,13 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from app.agents.summarize_agent import SummaryAgent
-from app.core.config import ConfigLoader
+from app.core.config import config
 from app.core.logger import logger
 
 router = APIRouter()
 
-config = ConfigLoader()
+print(config)
+
 summary_agent = SummaryAgent(api_key=config.open_api_key, model_name=config.open_api_model)
 
 
@@ -31,7 +32,7 @@ class SummarizeRequest(BaseModel):
 
     """
 
-    text: str = Field(..., min_length=1, max_length=10000, description="Text to be summarized")
+    text: str = Field(..., min_length=1, description="Text to be summarized")
 
 
 async def generate_summary_with_agent(agent: SummaryAgent, text: str) -> AsyncGenerator[str]:

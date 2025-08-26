@@ -5,7 +5,10 @@ This module defines the ConfigLoader class for managing environment-based config
 
 from typing import ClassVar
 
+from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
+
+load_dotenv()
 
 
 class ConfigLoader(BaseSettings):
@@ -17,8 +20,8 @@ class ConfigLoader(BaseSettings):
     env_file: ClassVar[str] = ".env"
     env_file_encoding: ClassVar[str] = "utf-8"
 
-    open_api_key: str = ""
-    open_api_model: str = "gpt-4o-mini"
+    open_api_key: str
+    open_api_model: str
 
     project_name: str = "smart-summary-backend"
 

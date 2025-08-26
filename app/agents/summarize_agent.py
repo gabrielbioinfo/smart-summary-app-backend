@@ -32,7 +32,7 @@ class SummaryAgent:
                 chain = prompt | self.llm
                 summary = chain.invoke({"input": text})
             else:
-                summary = self.llm(text)
+                summary = self.llm.invoke(text)
         except Exception:
             logger.exception("Error during summarization")
             raise
