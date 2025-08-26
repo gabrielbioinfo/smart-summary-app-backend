@@ -75,7 +75,7 @@ Response: real-time stream (`text/event-stream`) with summary chunks.
 
 ```bash
 docker build -t smart-summary-api .
-docker run --rm -p 8000:8000 --env-file .env.example smart-summary-api
+docker run --rm -p 8000:8000 --env-file .env smart-summary-api
 ```
 
 ---
